@@ -1,0 +1,1291 @@
+﻿define sounds = ['audio/B1.ogg', 'audio/B2.ogg', 'audio/B3.ogg', 'audio/B4.ogg', 'audio/B5.ogg']
+init python:
+    def type_sound(event, interact=True, **kwargs):
+        if not interact:
+            return
+
+        if event == "show":
+            renpy.sound.play(renpy.random.choice(sounds))
+            renpy.sound.queue(renpy.random.choice(sounds))
+            renpy.sound.queue(renpy.random.choice(sounds))
+            renpy.sound.queue(renpy.random.choice(sounds))
+            renpy.sound.queue(renpy.random.choice(sounds))
+            renpy.sound.queue(renpy.random.choice(sounds))
+            renpy.sound.queue(renpy.random.choice(sounds))
+            renpy.sound.queue(renpy.random.choice(sounds))
+            renpy.sound.queue(renpy.random.choice(sounds))
+            renpy.sound.queue(renpy.random.choice(sounds))
+            renpy.sound.queue(renpy.random.choice(sounds))
+            renpy.sound.queue(renpy.random.choice(sounds))
+            renpy.sound.queue(renpy.random.choice(sounds))
+            renpy.sound.queue(renpy.random.choice(sounds))
+            renpy.sound.queue(renpy.random.choice(sounds))
+            renpy.sound.queue(renpy.random.choice(sounds))
+            renpy.sound.queue(renpy.random.choice(sounds))
+            renpy.sound.queue(renpy.random.choice(sounds))
+            renpy.sound.queue(renpy.random.choice(sounds))
+            renpy.sound.queue(renpy.random.choice(sounds))
+            renpy.sound.queue(renpy.random.choice(sounds))
+            renpy.sound.queue(renpy.random.choice(sounds))
+            renpy.sound.queue(renpy.random.choice(sounds))
+            renpy.sound.queue(renpy.random.choice(sounds))
+            renpy.sound.queue(renpy.random.choice(sounds))
+            renpy.sound.queue(renpy.random.choice(sounds))
+            renpy.sound.queue(renpy.random.choice(sounds))
+            renpy.sound.queue(renpy.random.choice(sounds))
+            renpy.sound.queue(renpy.random.choice(sounds))
+            renpy.sound.queue(renpy.random.choice(sounds))
+            renpy.sound.queue(renpy.random.choice(sounds))
+        elif event == "slow_done" or event == "end":
+            renpy.sound.stop()
+
+
+# Init
+#///////////////////////////////////////////////
+define Joseph = Character('Джозеф Джостер', color="#000000", callback=type_sound)
+image JosephJoestar_Far_Positive = "images/characters/JosephJoestar_Far_Positive.png"
+image JosephJoestar_Far_Negative = "images/characters/JosephJoestar_Far_Negative.png"
+
+define Anton = Character('Антон Стонкович', color="#000000", what_bold = True, callback=type_sound)
+
+define Oleg = Character('Олег', color="#000000", callback=type_sound)
+image Oleg = "images/characters/Oleg.png"
+
+define Victor = Character('Виктор-95', color="#000000", callback=type_sound)
+image Victor = "images/characters/Victor95.png"
+image VicorMirrored = "images/characters/Victor95_Mirrored.png"
+
+define Tommy = Character('Томми Старк', color="#000000", callback=type_sound)
+image TommyStark_Full = "images/characters/TommyStark_Full.png"
+image TommyStark_Face = "images/characters/TommyStark_Face.png"
+
+define Anastasia = Character('Анастасия Сорью', color="#000000", callback=type_sound)
+image AnastasiaSoryu_Negative = "images/characters/AnastasiaSoryu_Negative.png"
+image AnastasiaSoryu_Positive = "images/characters/AnastasiaSoryu_Positive.png"
+
+define Ivan = Character('Иван Лейн', color="#000000", callback=type_sound)
+image IvanLane = "images/characters/IvanLane.png"
+image IvanLane_Mirrored = "images/characters/IvanLane_Mirrored.png"
+
+# Backgrounds
+image JosephJoestar_Cabinet = "images/backgrounds/JosephJoestar_Cabinet.jpg"
+image TommyStark_Cabinet = "images/backgrounds/TommyStark_Cabinet.jpg"
+image AnastasiaSoryu_Cabinet = "images/backgrounds/AnastasiaSoryu_Cabinet.jpg"
+image corridor = "images/backgrounds/corridor.jpg"
+image IvanLane_Cabinet = "images/backgrounds/IvanLane_Cabinet.jpg"
+
+image game_logo = "images/gameLogo1.png"
+image team_logo = "images/teamLogo.jpg"
+image phone = "images/phone.png"
+
+# First MiniGame Images
+#programmers
+image P_candidate1 = "images/first_minigame/programmers/1.png"
+image P_candidate2 = "images/first_minigame/programmers/2.png"
+image P_candidate3 = "images/first_minigame/programmers/3.png"
+#designers
+image D_candidate1 = "images/first_minigame/designers/1.png"
+image D_candidate2 = "images/first_minigame/designers/2.png"
+image D_candidate3 = "images/first_minigame/designers/3.png"
+# analysts
+image A_candidate1 = "images/first_minigame/analysts/1.png"
+image A_candidate2 = "images/first_minigame/analysts/2.png"
+image A_candidate3 = "images/first_minigame/analysts/3.png"
+#securityEngineers
+image SE_candidate1 = "images/first_minigame/securityEngineers/1.png"
+image SE_candidate2 = "images/first_minigame/securityEngineers/2.png"
+image SE_candidate3 = "images/first_minigame/securityEngineers/3.png"
+#systemAdministrators
+image SA_candidate1 = "images/first_minigame/systemAdministrators/1.png"
+image SA_candidate2 = "images/first_minigame/systemAdministrators/2.png"
+image SA_candidate3 = "images/first_minigame/systemAdministrators/3.png"
+
+
+
+init:
+    $ timer_range = 0
+    $ timer_jump = 0
+    $ time = 0
+    $ points = 10
+    $ plus = 1
+    $ max_point = 200
+    $ clicked = True
+
+    $ game1_complete = False
+    $ game2_complete = False
+    $ game3_complete = False
+    image stonksDecline:
+        "images/backgrounds/stonksDecline.jpg"
+        zoom 2.0
+    image AntonStonkovich:
+        "images/characters/AntonStonkovich.png"
+        zoom 1.5
+#///////////////////////////////////////////////
+
+# Splashscreen
+
+#//////////////////////////////////////////////
+label splashscreen:
+    scene black with dissolve
+    pause 0.5
+    
+    show team_logo with dissolve
+    pause 1
+    hide team_logo with dissolve
+    show text "{size=60}{b}Представляют" with dissolve
+    pause 1
+    hide text with dissolve
+
+    show game_logo with dissolve
+    pause 2
+    hide game_logo with dissolve
+    pause 1
+
+    return
+#//////////////////////////////////////////////
+
+# Chapter 1
+
+#//////////////////////////////////////////////
+label start:
+    stop music fadeout 2
+    show text "{size=60}{b}Глава 1. Устройство в компанию" with dissolve
+    pause 1
+    scene JosephJoestar_Cabinet
+    show JosephJoestar_Far_Positive with dissolve
+
+    Joseph "Антон Стонкович, что с нашими финансами?"
+
+label stonks:
+    scene stonksDecline at center
+    with dissolve
+    show AntonStonkovich at left 
+    with moveinleft 
+
+    Anton "NOT STONKS"
+
+label phoneRing:
+    scene JosephJoestar_Cabinet
+    show JosephJoestar_Far_Negative with dissolve
+
+    show phone with dissolve
+    play sound "audio/phoneRing.mp3" fadein 2
+    pause 1.7
+    stop sound
+    pause 0.5
+
+    Joseph "Да, Любочка ... угу ... угу ... тот самый? … зови его ко мне."
+    Joseph "Здраво, мне тут передали, что вы ищете работу."
+
+    show Oleg at right
+    with moveinright
+
+    Oleg "Да, все так."
+    Joseph "Слушай, Олег, сейчас у нас сложная обстановка, нужно решать проблемы, если готов работать поставь подписи в договоре и поехали."
+    Oleg "Эмм … будет ли какое-то собеседование? И можете, пожалуйста, рассказать о компании."
+    Joseph "Да, я и так..."
+
+label notTime:
+    scene stonksDecline at center
+    with dissolve
+    show AntonStonkovich at left 
+    with moveinleft 
+
+    Anton "NOT TIME"
+
+label meetingVictor:
+    scene JosephJoestar_Cabinet
+    show JosephJoestar_Far_Positive
+    show Oleg at right
+    with dissolve
+
+    Joseph "Ты его слышал..."
+
+    play sound "audio/doorOpen.mp3"
+    pause 0.5
+    stop sound
+
+    show Victor at left
+    with dissolve 
+
+    Victor "Рад знакомству, парень. Мы здесь работаем как одна большая семья. Пойдем я тебе покажу все."
+    Oleg "Но я ведь..."
+    Victor "На это нет времени."
+
+    scene black with dissolve
+    pause 0.5
+    show text "{size=60}{b}Глава 2. Знакомство с командой" with dissolve
+    pause 1
+    jump start2
+#//////////////////////////////////////////////
+
+#Chapter 2
+
+#//////////////////////////////////////////////
+label start2:
+    scene TommyStark_Cabinet 
+    show TommyStark_Full at center
+    show Victor at left
+    show Oleg at right
+    with dissolve
+
+    Victor "Здесь работает тимлид. Он управляет нашей командой, общается с клиентами и поддерживает настрой."
+    
+    hide Victor
+    hide TommyStark_Full
+    show TommyStark_Face at left
+    with dissolve
+
+    Tommy "О, привет. Добро пожаловать в нашу \"семейку\". Можешь звать меня Томми"
+    Tommy "Расскажешь о себе?"
+    Oleg "Раньше я работал в компании, специализирующейся на разработке веб-приложений. Там произошел один инцидент … но не важно."
+    Tommy "Понимаю, у всех есть свои секреты. Виктор, вы уже показали нашему коллеге его новую команду?"
+
+    hide TommyStark_Face
+    show Victor at left
+    with dissolve
+
+    Victor "Ладно, парень, пошли дальше."
+    hide Victor
+    hide Oleg
+    with dissolve
+
+label designerMeeting:
+    scene AnastasiaSoryu_Cabinet
+    show Victor at left
+    show Oleg at right
+    with dissolve
+
+    Victor "Дизайном наших продуктов занимается Анастасия Сорью. Она создает пользовательский интерфейс."
+
+    hide Victor
+    show AnastasiaSoryu_Positive at left
+    with dissolve
+
+    Anastasia "Здравствуйте."
+
+    hide Oleg with dissolve
+    pause 0.2
+    show AnastasiaSoryu_Positive at right
+    with moveinright
+    show Victor at left
+    with dissolve
+    
+    Anastasia "Виктор a это кто?"
+    Victor "Анастасия, знакомьтесь, это Олег. Возможно, он поможет решить проблемы нашей компании."
+    Anastasia "У компании есть какие-то проблемы?"
+    
+    hide AnastasiaSoryu_Positive 
+    show Oleg at right
+    with dissolve
+
+    Victor "Ладно, пошли дальше, я не познакомил тебя еще с нашим {b}ВЕЛИКИМ{/b} кибербезопасником."
+    
+    hide Oleg
+    hide Victor 
+    with dissolve
+
+label corridorSmallTalk:
+    scene corridor
+    show Victor at left
+    show Oleg at right
+    with dissolve
+
+    Victor "Анастасия, конечно, странная, но она наш главный генератор идей. Никто бы не смог придумать того, что смогла придумала она."
+    Oleg "А что именно?"
+    Victor "Многое… многое, парень. Старайся, к ней относится проще, она может быть немного импульсивной."
+
+    hide Oleg
+    hide Victor 
+    with dissolve
+
+label IvanMeeting:
+    scene IvanLane_Cabinet
+    show VicorMirrored at right
+    with dissolve
+
+    Victor "А вот и наш специалист по кибербезопасности. Хе-хе."
+    
+    show IvanLane_Mirrored at left
+    with moveinleft
+
+    Ivan "Ты че пришел, вор."
+    Victor "Опять …"
+    Ivan "Да пошел т…"
+    Victor "Я пришел знакомить тебя с нашим новым DevOps инженером."
+
+    hide VicorMirrored with dissolve
+    show Oleg at right
+    
+    Oleg "Здравствуйте!"
+    Ivan "Добро пожаловать…"
+
+    hide IvanLane_Mirrored with dissolve
+    show Victor at left
+    with dissolve
+
+    Victor "Видимо он сегодня не в настроение. Давай я покажу тебе твой кабинет."
+
+label corridorSecondTalk:
+    scene corridor
+    show Victor at left
+    show Oleg at right
+    with dissolve
+
+    Victor "Не обращай на него внимания - с ним никто не может найти общий язык."
+    Oleg "Мне кто-нибудь расскажет, чем мне нужно заниматься?"
+    Victor "Поговори с тимлидом - он введет тебя в курс дела."
+
+    hide Victor
+    hide Oleg
+    scene black with dissolve
+    pause 0.5
+    show text "{size=60}{b}Глава 3. Первые подозрения" with dissolve
+    pause 1
+    jump start3
+#//////////////////////////////////////////////
+
+#Chapter 3
+
+#//////////////////////////////////////////////
+label start3:
+    scene TommyStark_Cabinet
+    show Oleg at right
+    show TommyStark_Full at center
+    with dissolve
+
+    Oleg "Ещё раз привет, можешь подробнее рассказать о том, что мне нужно делать?"
+
+    hide TommyStark_Full with dissolve
+    show TommyStark_Face at left
+    with dissolve
+
+    Tommy "Конечно, кратко введу в курс дела. У нас впереди новый проект и надо сплотить нашу команду. Нам нужно сбалансировать работу и личные отношения сотрудников, чтобы достичь успеха."
+    Oleg "А моя задача в чём?"
+    Tommy "Обеспечить эффективную коммуникацию между сотрудниками. Ты будешь отвечать за автоматизацию процессов разработки, тестирования и развертывания приложений. Это должно помочь нам ускорить время выхода продукта."
+    Tommy "Сейчас тебе нужно собрать воедино все части, из которых состоит проект. Но для этого необходимо помочь каждому из членов твоей новой команды, как раз познакомишься со всеми ними. Так же советую сразу навестить Ивана Лейна."
+    Oleg "Это ещё зачем?"
+    Tommy "Потом поймёшь. Пока, в качестве вступительного испытания, пройди вот это задание."
+    Oleg "Хорошо..."
+
+    hide TommyStark_Face
+    hide Oleg 
+    with dissolve
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# MINI GAME 1
+
+
+
+
+
+
+
+
+label firstMiniGame:
+    $ score = 0
+    $ current_stage = 0
+    scene black with fade
+    pause 1
+    scene TommyStark_Cabinet
+    show TommyStark_Face at left
+    Tommy "Твоя задача выбрать лучших кандидатов на вакансии в команду."
+    Tommy "Всего 5 вакансий: программист, дизайнер, аналитик данных, инженер по безопасности, системный администратор."
+    Tommy "Каждая вакансия имеет 3 кандидата, из которых тебе нужно выбрать лучшего."
+    Tommy "В конце ты узнаешь свой итоговый счет."
+    scene black with dissolve
+
+label firstGameLobby:
+    if current_stage == 0:
+        show text "{size=60}{b}Программисты" with dissolve
+        pause 0.3
+        hide text
+
+        show P_candidate1:
+            xalign 0.2
+            yalign 0.5
+        with dissolve
+        pause 0.1
+
+        show P_candidate2:
+            xalign 0.5
+            yalign 0.5
+        with dissolve
+        pause 0.1
+
+        show P_candidate3:
+            xalign 0.8
+            yalign 0.5
+        with dissolve
+        pause 0.1
+        
+        
+        $ names = ["Алексей Иванов", "Мария Петрова", "Иван Сидоров"]
+        $ points = [20, 10, 5]
+        $ chosen_point = 0
+        call startFirstGame
+        
+
+    elif current_stage == 1:
+        show text "{size=60}{b}Дизайнеры" with dissolve
+        pause 0.3
+        hide text
+
+        show D_candidate1:
+            xalign 0.2
+            yalign 0.5
+        with dissolve
+        pause 0.1
+
+        show D_candidate2:
+            xalign 0.5
+            yalign 0.5
+        with dissolve
+        pause 0.1
+
+        show D_candidate3:
+            xalign 0.8
+            yalign 0.5
+        with dissolve
+        pause 0.1
+        
+        
+        $ names = ["Антон Белов", "Елена Кузнецова", "Наталья Иванова"]
+        $ points = [10, 20, 5]
+        $ chosen_point = 0
+        call startFirstGame
+
+    elif current_stage == 2:
+        show text "{size=60}{b}Аналитики" with dissolve
+        pause 0.3
+        hide text
+
+        show A_candidate1:
+            xalign 0.2
+            yalign 0.5
+        with dissolve
+        pause 0.1
+
+        show A_candidate2:
+            xalign 0.5
+            yalign 0.5
+        with dissolve
+        pause 0.1
+
+        show A_candidate3:
+            xalign 0.8
+            yalign 0.5
+        with dissolve
+        pause 0.1
+        
+        
+        $ names = ["Павел Егоров", "Дмитрий Смирнов", "Анна Козлова"]
+        $ points = [5, 20, 10]
+        $ chosen_point = 0
+        call startFirstGame
+    
+    elif current_stage == 3:
+        show text "{size=60}{b}Инженеры по безопасности" with dissolve
+        pause 0.3
+        hide text
+
+        show SE_candidate1:
+            xalign 0.2
+            yalign 0.5
+        with dissolve
+        pause 0.1
+
+        show SE_candidate2:
+            xalign 0.5
+            yalign 0.5
+        with dissolve
+        pause 0.1
+
+        show SE_candidate3:
+            xalign 0.8
+            yalign 0.5
+        with dissolve
+        pause 0.1
+        
+        
+        $ names = ["Иван Петров", "Марина Иванова", "Назар Нестеров"]
+        $ points = [10, 5, 20]
+        $ chosen_point = 0
+        call startFirstGame
+    
+    elif current_stage == 4:
+        show text "{size=60}{b}Системные администраторы" with dissolve
+        pause 0.3
+        hide text
+
+        show SA_candidate1:
+            xalign 0.2
+            yalign 0.5
+        with dissolve
+        pause 0.1
+
+        show SA_candidate2:
+            xalign 0.5
+            yalign 0.5
+        with dissolve
+        pause 0.1
+
+        show SA_candidate3:
+            xalign 0.8
+            yalign 0.5
+        with dissolve
+        pause 0.1
+        
+        
+        $ names = ["Сергей Николаев", "Евгений Сидоров", "Анастасия Павлова"]
+        $ points = [20, 10, 5]
+        $ chosen_point = 0
+        call startFirstGame
+    
+    elif current_stage == 5:
+        jump firstGameEnd
+
+label startFirstGame:
+    call screen firstGame
+    $ score += chosen_point
+    
+
+    if current_stage == 0:
+        hide P_candidate1
+        hide P_candidate2
+        hide P_candidate3
+        with dissolve
+    elif current_stage == 1:
+        hide D_candidate1
+        hide D_candidate2
+        hide D_candidate3
+        with dissolve
+    elif current_stage == 2:
+        hide A_candidate1
+        hide A_candidate2
+        hide A_candidate3
+        with dissolve
+    elif current_stage == 3:
+        hide SE_candidate1
+        hide SE_candidate2
+        hide SE_candidate3
+        with dissolve
+    elif current_stage == 4:
+        hide SA_candidate1
+        hide SA_candidate2
+        hide SA_candidate3
+        with dissolve
+    $ current_stage += 1
+    scene black with dissolve
+    jump firstGameLobby
+screen firstGame ():
+    $ imagesAlign = 0.2
+    for i in range(3):
+        frame:
+            xalign imagesAlign
+            yalign 0.8
+            hbox:
+                xalign 2.0
+                yalign 2.0
+                
+                textbutton names[i] action [SetVariable("chosen_point", points[i]), Return()]
+        $ imagesAlign += 0.3
+label firstGameEnd:
+    scene black with dissolve
+    pause 0.5
+    scene TommyStark_Cabinet
+    show TommyStark_Face at left
+    with dissolve
+
+    Tommy "Ты набрал {b}[score]{/b} баллов."
+    if score>=80:
+        $ game1_complete = True
+        jump firstMiniGameWin
+    else:
+        jump firstMiniGameLose
+
+
+label firstMiniGameWin:
+    scene TommyStark_Cabinet
+    show TommyStark_Face at left
+    show Oleg at right
+    with dissolve
+    $ game1_complete = True
+    Tommy "Хорошая работа! Твоё умение эффективно управлять командой сделает наш проект еще более успешным. А теперь отправляйся помогать остальным."
+    Oleg "Хорошо…"
+
+    jump chapterFourTransition
+
+label firstMiniGameLose:
+    scene TommyStark_Cabinet
+    show TommyStark_Face at left
+    show Oleg at right
+    with dissolve
+
+    Tommy "Не беспокойся, это всего лишь вступительное испытание. Надеюсь, ты покажешь себя с лучшей стороны перед остальными."
+    Oleg "Хорошо, прости…"
+
+    jump chapterFourTransition
+    
+
+
+
+
+label chapterFourTransition:
+    scene black with dissolve
+    pause 0.5
+    show text "{size=60}{b}Глава 4. Начало расследования" with dissolve
+    pause 1
+    jump start4
+
+
+
+
+
+
+
+
+
+
+
+#//////////////////////////////////////////////
+
+#Chapter 4
+
+#//////////////////////////////////////////////
+label start4:
+    scene IvanLane_Cabinet
+    show Oleg at right
+    show IvanLane_Mirrored at left
+    with dissolve
+
+    Oleg "Слышал, что тебе нужна помощь, но сперва я хочу выяснить одну вещь."
+    Ivan "И какую же?"
+    Oleg "Почему ты был так взбешен на Виктора?"
+    Ivan "Видишь ли, в нашей компании происходит слив данных, и из-за плохой репутации пользователи боятся использовать наши продукты. Но давай об этом позже, сперва помоги мне с вопросом кибербезопасности."
+    Oleg "Ладно, как скажешь."
+    
+
+    hide Oleg 
+    hide IvanLane_Mirrored 
+    with dissolve
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+label secondMiniGame:
+    $ time = 60
+    $ timer_range = 60
+    $ timer_jump = 'secondMiniGameLose'
+
+    scene black with dissolve
+    pause 0.5
+    scene IvanLane_Cabinet
+    show IvanLane_Mirrored at left
+    Ivan "Последнее время мы стали свидетелями учащения кибератак на нашу сеть. Сейчас у меня в карантинной зоне находится одна из потенциальных угроз. Помоги мне её устранить."
+    Ivan "Тебе нужно в течние 60 секунду нажать на нее как можно большее число раз"
+    scene black with dissolve
+    call screen countdown  
+
+transform alpha_dissolve:
+    alpha 0.0
+    linear 0.5 alpha 1.0
+    on hide:
+        linear 0.5 alpha 0
+
+init:
+    $ timer_range = 0
+    $ timer_jump = 0
+    $ time = 0
+    $ point = 10
+    $ plus = 1
+    $ max_point = 200
+    $ clicked = True
+
+screen countdown:
+    default image_size = 300
+    timer 0.01 repeat True action If(time > 0, true=SetVariable('time', time - 0.01), false=[Hide('countdown'), Jump(timer_jump)]) 
+
+    bar value time range timer_range xalign 0.5 yalign 0.9 xmaximum 300 at alpha_dissolve 
+    
+    modal True
+    timer 1 repeat True action [If(point <= 0, true=Jump("secondMiniGameLose"), false=SetVariable("point", point - plus))]
+    text "[point] / [max_point]" size 40 xalign 0.5 yalign 0.3
+    button:
+        hovered SetScreenVariable("image_size", 400) 
+        unhovered SetScreenVariable("image_size", 300)
+        hbox:
+            xalign 0.5
+            yalign 0.5
+            xysize(400, 400)
+            image "virus":
+                xysize(image_size, image_size)
+                xalign 0.5
+                yalign 0.5
+        
+        xpos .422
+        ypos .45
+        xysize(300, 300)
+        action [SetVariable("clicked", True), If(point >= max_point, true=Jump('secondMiniGameWin'), false=SetVariable("point", point + plus))]
+    vbar value StaticValue(point, max_point)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+label secondMiniGameWin:
+    scene IvanLane_Cabinet
+    show Oleg at right
+    show IvanLane_Mirrored at left
+    with dissolve
+    $ game2_complete = True
+
+    Ivan "Превосходно! Наша система пока в безопасности, ты проделал отличную работу."
+    Oleg "Спасибо."
+    Ivan "А теперь вернёмся к вопросу слива данных. У меня есть неопровержимый факт, который указывает на то, что за всем стоит Виктор-95."
+    Oleg "Неужели и вправду он?"
+    Ivan "Именно. По логам я отследил, что с компьютера Виктора-95 на сторонние хосты передаются файлы с данными пользователей."
+    Oleg "Что им движет?"
+    Ivan "Не знаю, но запомни эту информацию. Логи закинул на твой комп."
+    Oleg "Хорошо, спасибо. Я пойду дальше."
+    Ivan "Удачи."
+
+    jump chapterFiveTransition
+
+label secondMiniGameLose:
+    scene IvanLane_Cabinet
+    show Oleg at right
+    show IvanLane_Mirrored at left
+    with dissolve
+
+    Ivan "Часть угрозы мы устранили, но, к сожалению, всё ещё есть риски для нашей системы."
+    Oleg "Прости... Кстати, ты же что-то хотел рассказать про слив данных?"
+    Ivan "Пока на это нет времени. Мне нужно дальше устранять проблемы. Может быть когда-нибудь позже."
+    Oleg "Ладно…"
+    Ivan "А теперь иди дальше. Слышал, Сорью тоже нужна помощь."
+
+    jump chapterFiveTransition
+
+label chapterFiveTransition:
+    scene black with dissolve
+    pause 0.5
+    show text "{size=60}{b}Глава 5. Запутанные нити прошлого" with dissolve
+    pause 1
+    jump start5
+#//////////////////////////////////////////////
+
+#Chapter 5
+
+#//////////////////////////////////////////////
+label start5:
+    scene AnastasiaSoryu_Cabinet
+    show Oleg at right
+    show AnastasiaSoryu_Negative at left
+    with dissolve
+
+    Oleg "Привет…"
+    pause 1.0
+    Oleg "Привет?"
+
+    hide AnastasiaSoryu_Negative
+    show AnastasiaSoryu_Positive at left
+    with dissolve
+
+    Anastasia "А, привет, прости, заработалась…"
+    Oleg "Нужна помощь?"
+    Anastasia "Помощь, помощь…"
+    pause 1.0
+    Anastasia "Слушай, есть некоторая важная для тебя информация…"
+    Oleg "???"
+    Anastasia "В твоей прошлой компании была “крыса”, которая тебя подставила."
+    Oleg "Что? Кто от куда ты знаешь?"
+    Anastasia "Прости, о чём мы изначально говорили?"
+    Oleg "Не отходи от темы, ты знаешь, кто меня подставил?"
+    Anastasia "А, ой, это был 2Д."
+    Oleg "Кто-кто?"
+
+    hide AnastasiaSoryu_Positive
+    show AnastasiaSoryu_Negative at left
+    with dissolve
+
+    Anastasia "Ты не знаешь кто такой 2Д??"
+    Oleg "Нет…"
+
+    hide AnastasiaSoryu_Negative
+    show AnastasiaSoryu_Positive at left
+    with dissolve
+
+    Anastasia "Давай об этом позже. Я вспомнила, помоги мне, пожалуйста с дизайном сайта."
+    Oleg "(Пока лучше просто помочь ей, потом узнаю всю правду)"
+
+    hide AnastasiaSoryu_Positive
+    hide Oleg
+    with dissolve
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Mini Game 3
+
+label thirdMiniGame:
+    scene black with dissolve
+    pause 0.5
+    scene AnastasiaSoryu_Cabinet
+    show AnastasiaSoryu_Positive at left
+
+    Anastasia "Я никак не могу подобрать цвета для сайта. Поможешь?"
+    Anastasia "Я тебе буду показывать цвета и ты будешь выбирать какой из них больше всего похож на основной."
+    $ times = 1
+    $ score = 0
+
+label secondGameLobby:
+    if times == 1:
+        call start_second_game pass (color0="#ff0000", colors1=["#ffa500", "#ffae00", "#ff009d", "#ff0000"])
+    elif times == 2:
+        call start_second_game pass (color0="#9ccbf1", colors1=["#4d7ec7", "#9ccbf1", "#0f737a", "#fcd912"])
+    elif times == 3:
+        call start_second_game pass (color0="#57ff15", colors1=["#10ffd7", "#9dff00", "#57ff15", "#12c5fc"])
+    elif times == 4:
+        call start_second_game pass (color0="#ff15c4", colors1=["#ff109b", "#e100ff", "#e415ff", "#ff15c4"])
+    elif times == 5:
+        call start_second_game pass (color0="#5c4352", colors1=["#5c4352", "#4f4261", "#434f57", "#4a334d"])
+    elif times == 6:
+        call start_second_game pass (color0="#9dff00", colors1=["#00ff15", "#72d303", "#9dff00", "#48ff1a"])
+    elif times == 7:
+        call start_second_game pass (color0="#3700ff", colors1=["#5900ff", "#bb03d3", "#00aeff", "#3700ff"])
+    elif times == 8:
+        call start_second_game pass (color0="#ffd000", colors1=["#c29008", "#ffd000", "#eeff00", "#ff631a"])
+    else:
+        jump end_second_game
+
+label start_second_game(color0="#ff0000", colors1=["#ffa500", "#ffae00", "#ff009d", "#ff0000"]):
+    scene black with dissolve
+    show text "{size=60}{b}Стадия [times] / 8" with dissolve
+    pause 0.3
+    hide text with dissolve
+    $ main_color = color0 
+    $ similar_colors = colors1 
+    $ chosen_color = None
+    call screen colorGame
+    if chosen_color == main_color:
+        $ times += 1
+        $ score += 1
+    else:
+        $ times += 1
+    jump secondGameLobby
+
+screen colorGame():
+    frame:
+        align (0.5, 0.2)
+        xsize 900
+        ysize 100
+        background "black"
+        vbox:
+            xalign 0.5
+            yalign 0.5
+            text "Какой цвет больше всего похож на основной?":
+                at truecenter
+                at transform:
+                    alpha 0.0
+                    linear 0.5 alpha 1.0
+    frame:
+        align (0.5, 0.5)
+        xsize 500
+        ysize 300
+        background main_color
+        vbox:
+            xalign 0.5
+            yalign 0.5
+    $ alignx = 0.35
+    for i in range(4):
+        frame:
+            align (alignx, 0.9)
+            background similar_colors[i]
+            button:
+                xsize 100
+                ysize 100
+                action [SetVariable("chosen_color", similar_colors[i]), Return()]
+        $ alignx += 0.1
+
+
+label end_second_game:
+    if score >= 6:
+        $ game3_complete = True
+        jump thirdMiniGameWin
+    else:
+        jump thirdMiniGameLose
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+label thirdMiniGameWin:
+    scene AnastasiaSoryu_Cabinet
+    show AnastasiaSoryu_Positive at left
+    show Oleg at right
+    with dissolve
+
+    Anastasia "Спасибо за помощь. Я забыла о чём-то важном…"
+    Oleg "Кого подослали в мою прошлую компанию?"
+    Anastasia "А, точно. У меня есть документ, в котором был план внедрения “крысы” в эту компанию. Держи."
+    pause 2
+    Oleg "Джозеф Джостер?"
+    Anastasia "Он самый."
+    Oleg "Мне надо с ним поговорить."
+    Anastasia "Постой!"
+    Oleg "?"
+    Anastasia "Ради интереса, ты любишь кофе?"
+    Oleg "(Она действительно странная… Но дала мне полезную информацию)"
+    Oleg "Предпочитаю черный. Давай позже, потом поговорим."
+
+    jump chapterSixTransition
+
+label thirdMiniGameLose:
+    scene AnastasiaSoryu_Cabinet
+    show AnastasiaSoryu_Positive at left
+    show Oleg at right
+    with dissolve
+
+    Anastasia "Эх, мне всё ещё не нравится дизайн!"
+    Oleg "Извини, видимо во мне нету внутреннего эстетика…"
+    Anastasia "Так вот, 2Д – это Джозеф Джостер, наш директор."
+    Oleg "Что??"
+    Anastasia "Что же поменять… может, другое сочетание цветов?"
+    Oleg "Ты в этом уверенна?"
+    Anastasia "Да, да… иди дальше, мне ещё надо работать."
+    Oleg "(Не уверен, правду она говорит или нет, она кажется странной, но учту её слова. Надо идти к Джозефу)"
+
+    jump chapterSixTransition
+
+label chapterSixTransition:
+    scene black with dissolve
+    pause 0.5
+    show text "{size=60}{b}Глава 6. Финал" with dissolve
+    pause 1
+    jump start6
+#//////////////////////////////////////////////
+
+#Chapter 6
+
+#//////////////////////////////////////////////
+label start6:
+    scene JosephJoestar_Cabinet
+    show JosephJoestar_Far_Positive
+    show Oleg at right
+    with dissolve
+
+    Joseph "Вижу, ты уже освоился в команде?"
+    Oleg "Я со всеми познакомился, и выяснил одну интересную вещь. Нам надо кое о чем поговорить."
+    Joseph "И о чём же?"
+
+    if game3_complete:
+        jump SoryuMiniGameWin
+    else:
+        jump SoryuMiniGameLose
+
+label SoryuMiniGameWin:
+    hide JosephJoestar_Far_Positive
+    show JosephJoestar_Far_Negative
+    with dissolve
+
+    Oleg "Я выяснил, что из-за тебя меня уволили на предыдущей работе."
+    Joseph "Подожди, подожди, не кипятись…"
+    Oleg "Зачем тебе это было нужно?"
+    Joseph "Видишь ли…"
+    Joseph "Их компания участвовала в мошеннической схеме, и ты был лишним"
+    Joseph "Тебя бы слили из компании, и в худшем случае отправили на нары"
+    Joseph "Поэтому, увидев твой талант, я и решил вытащить тебя оттуда."
+    Joseph "Я тебе всё рассказал. Дальше дело за тобой. Поймёшь ли ты меня, либо уйдёшь из компании, выбор твой."
+
+    menu:
+        "Что сделать?"
+        "Остаться в компании":
+            Oleg "Несмотря на всё, мне нравится этот коллектив. Я остаюсь."
+            Joseph "Вот и славно."
+            jump continuationOfDialogue1
+        "Уйти из компании":
+            Oleg "Я не могу тебе верить. Твои слова о компании ещё ничего не доказывают."
+            Joseph "Ясно. Можешь идти."
+            jump firstBadEnding
+
+label SoryuMiniGameLose:
+    Oleg "Сорью мне сказала, что ты был крысой, из-за которой меня уволили из предыдущей компании."
+    Joseph "Ну что ты, что ты? Неужели ты ей поверил?"
+    Oleg "А ей, по-твоему, нельзя верить?"
+    Joseph "Ты общался с ней, должен понимать, что она с головой не дружит. Зато работник отличный."
+    Oleg "То есть, тебя не засылали в мою предыдущую компанию?"
+    Joseph "Всем что есть клянусь, я даже не знал до этого, кто ты!"
+    Oleg "Ладно, поверю."
+
+    jump continuationOfDialogue1
+
+
+
+
+label continuationOfDialogue1:
+    Joseph "Давай перейдем к другой, более важной теме."
+    Oleg "Слив данных?"
+    Joseph "В точку."
+    Joseph "Я так полагаю, у тебя уже есть идеи, кто это мог сделать?"
+    Oleg "Насчет этого…"
+
+    menu:
+        "Я считаю, что данные сливает"
+        "Томми Старк":
+            Joseph "..."
+            Joseph "Хорошо, я немедленно увольняю Томми Старка из фирмы."
+            Joseph "Надеюсь, ты не ошибся."
+            jump secondBadEnding
+        "Анастасия Сорью":
+            Joseph "..."
+            Joseph "Хорошо, я немедленно увольняю Анастасию Сорью из фирмы."
+            Joseph "Надеюсь, ты не ошибся."
+            jump secondBadEnding
+        "Виктор - 95":
+            Joseph "Что? Не может такого быть!"
+            Joseph "Ты уверен? Я уже столько лет с ним работаю!"
+            Oleg "Уверен. У меня есть доказательства."
+            Joseph "Если ты так уверен, то давай я вызову Виктора."
+            jump continuationOfDialogue2
+
+
+
+label continuationOfDialogue2:
+    hide JosephJoestar_Far_Negative
+    hide Oleg
+    with dissolve
+
+    scene black with dissolve
+    show text "{size=60}{i}Спустя некоторое время"
+    pause 0.5
+
+    scene JosephJoestar_Cabinet
+    show JosephJoestar_Far_Negative
+    show Oleg at right
+    with dissolve
+
+    play sound "audio/doorOpen.mp3"
+    pause 0.5
+    stop sound
+
+    show Victor at left
+    with dissolve
+
+    Victor "В чём дело, шеф?"
+    Oleg "Это ты мне должен рассказать в чём дело. Олег, твой выход."
+    if game3_complete:
+        menu:
+            "Видео с камер":
+                Oleg "По камерам я отследил, что ты сливаешь наши данные."
+                Victor "Но в моём кабинете нет камер…"
+                Oleg "…"
+                Joseph "…"
+                Joseph "Всё ясно. Ты просто пытаешься убрать Виктора-95. Олег, ты уволен."
+                Victor "Не ожидал от тебя такого."
+                Oleg "Но я…"
+                jump firstBadEnding
+            "Личные догатки":
+                Oleg "Ну..."
+                Oleg "{b}Я потомственный экстрасенс, я предвидел, что за всем стоит Виктор-95!"
+                Victor "…"
+                Joseph "…"
+                Oleg "Вы что, мне не верите?"
+                Joseph "Виктор, проводи его за дверь."
+                jump firstBadEnding
+            "Улика с места преступления":
+                Oleg "Возле компьютера, с которого был совершён слив данных, я нашёл волос, принадлежащий Виктору-95."
+                Victor "…"
+                Joseph "Ты… Ты же понимаешь, что Виктор – лысый?"
+                Oleg "А… ой…"
+                Victor "Предлагаю прекратить клоунаду."
+                Joseph "Согласен. Олег, ты уволен."
+                Oleg "Согласен. Олег, ты уволен."
+                jump firstBadEnding
+            "Логи с компьютера":
+                Oleg "Ты не учёл, что у нашего кибербезопасника есть логи всех действий со всех компьютеров."
+                Oleg "Во время очередной утечки данных, ты был за своим компьютером"
+                Oleg "И от тебя передавались пакеты данных на неизвестные сервера."
+                Victor "..."
+                Victor "Отпираться нет смысла. Это был я."
+                Joseph "Как ты мог?"
+                Victor "Мне платили большие деньги за такую простую работу."
+                Joseph "И что с тобой делать? Как думаешь, Олег?"
+                Oleg "Мне кажется, он уже усвоил урок. Будет достаточно взять с него компенсацию за вред и уволить."
+                Joseph "Принято. Виктор, собирай вещи и проваливай."
+                jump goodEnding
+    else:
+        menu:
+            "Видео с камер":
+                Oleg "По камерам я отследил, что ты сливаешь наши данные."
+                Victor "Но в моём кабинете нет камер…"
+                Oleg "…"
+                Joseph "…"
+                Joseph "Всё ясно. Ты просто пытаешься убрать Виктора-95. Олег, ты уволен."
+                Victor "Не ожидал от тебя такого."
+                Oleg "Но я…"
+                jump firstBadEnding
+            "Личные догатки":
+                Oleg "Ну..."
+                Oleg "{b}Я потомственный экстрасенс, я предвидел, что за всем стоит Виктор-95!"
+                Victor "…"
+                Joseph "…"
+                Oleg "Вы что, мне не верите?"
+                Joseph "Виктор, проводи его за дверь."
+                jump firstBadEnding
+            "Улика с места преступления":
+                Oleg "Возле компьютера, с которого был совершён слив данных, я нашёл волос, принадлежащий Виктору-95."
+                Victor "…"
+                Joseph "Ты… Ты же понимаешь, что Виктор – лысый?"
+                Oleg "А… ой…"
+                Victor "Предлагаю прекратить клоунаду."
+                Joseph "Согласен. Олег, ты уволен."
+                Oleg "Согласен. Олег, ты уволен."
+                jump firstBadEnding
+#//////////////////////////////////////////////
+
+# Endings
+
+#//////////////////////////////////////////////
+
+label firstBadEnding:
+    scene black with dissolve
+    show text "{size=40}{b}После увольнения Олега положение компании ухудшилось"
+    with dissolve
+    pause 2
+    hide text with dissolve
+    pause 0.5
+    show text "{size=40}{b}Виктор-95 оказался тем, кто сливает все данные"
+    with dissolve
+    pause 2
+    hide text with dissolve
+    pause 0.5
+    show text "{size=40}{b}В результате, из-за плохой репутации, компания обанкротилась, а секрет Виктора так и остался нераскрытым"
+    with dissolve
+    pause 6
+    hide text with dissolve
+    pause 0.5
+    jump end
+
+label secondBadEnding:
+    scene black with dissolve
+    show text "{size=40}{b}После того, как по команде Олега уволили не того человека, ситуация в компании ухудшилась."
+    with dissolve
+    pause 5
+    hide text with dissolve
+    pause 0.5
+    show text "{size=40}{b}Виктор-95 был тем, кого стоило уволить" 
+    with dissolve
+    pause 2
+    hide text with dissolve
+    pause 0.5
+    show text "{size=40}{b}В результате компания обанкротилась, а секрет Виктора так и остался нераскрытым" 
+    with dissolve
+    pause 3
+    jump end
+
+label goodEnding:
+    scene black with dissolve
+    show text "{size=60}{b}После увольнения Виктора компания взлетела до небывалых высот"
+    pause 3
+    show text "{size=60}{b}Олег привнес новый взгляд и эффективные изменения в бизнес-процессы"
+    pause 3
+    jump end
+
+label end:
+    scene black with dissolve
+    pause 0.5
+    show text "{size=60}{b}Спасибо за прохождение!"
+    pause 2
+    hide text with dissolve
+    jump creditz
+init:
+    transform txt_up:
+        yalign 1.5
+        linear 15.0 yalign -1.5
+label creditz:
+    scene black with dissolve
+    show text "{size=40}{b}Над игрой работали:{/b} {p} {b}Лосев Алексей{/b} - Тимлид {p} {b}Баранов Вячеслав{/b} - Дизайнер {p} {b}Соколов Дмитрий{/b} - Геймдизайнер {p} {b}Исаев Алексей{/b} - Аналитик {p} {b}Соколов Дмитрий{/b} - Разработчик{/size} {p}{p} {size=20} © The Roosters In The Code Palace Company. Not all rights reserved." at txt_up
+    pause 10
+    jump fullEnd
+label fullEnd:
+    python:
+        renpy.full_restart()
